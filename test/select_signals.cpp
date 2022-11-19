@@ -21,31 +21,31 @@
  * SOFTWARE.
  */
 
-#include <backward_ros/backward.hpp>
+#include "backward.hpp"
 
+#include "test/test.hpp"
 #include <signal.h>
 #include <stdio.h>
-#include "test.hpp"
 
 using namespace backward;
 
 void badass_function() {
-	char* ptr = (char*)42;
-	*ptr = 42;
+  char *ptr = (char *)42;
+  *ptr = 42;
 }
 
-TEST_SEGFAULT (pprint_sigsev) {
-	std::vector<int> signals;
-	signals.push_back(SIGSEGV);
-	SignalHandling sh(signals);
-	std::cout << std::boolalpha << "sh.loaded() == " << sh.loaded() << std::endl;
-	badass_function();
+TEST_SEGFAULT(pprint_sigsev) {
+  std::vector<int> signals;
+  signals.push_back(SIGSEGV);
+  SignalHandling sh(signals);
+  std::cout << std::boolalpha << "sh.loaded() == " << sh.loaded() << std::endl;
+  badass_function();
 }
 
-TEST_SEGFAULT (wont_pprint) {
-	std::vector<int> signals;
-	signals.push_back(SIGABRT);
-	SignalHandling sh(signals);
-	std::cout << std::boolalpha << "sh.loaded() == " << sh.loaded() << std::endl;
-	badass_function();
+TEST_SEGFAULT(wont_pprint) {
+  std::vector<int> signals;
+  signals.push_back(SIGABRT);
+  SignalHandling sh(signals);
+  std::cout << std::boolalpha << "sh.loaded() == " << sh.loaded() << std::endl;
+  badass_function();
 }
